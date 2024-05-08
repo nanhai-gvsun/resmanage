@@ -17,7 +17,7 @@ headers = {'PRIVATE-TOKEN': args["token"]}
 
 g1=gitlab.Gitlab(args["gitlab_url"], private_token=args["token"])
 project=g1.projects.get(args["project_id"])
-path=os.path.abspath(os.path.join(args.get("path"),"./"+str(args.get("project_id"))))
+path=os.path.abspath(os.path.join(args.get("path"),"./data/"+str(args.get("project_id"))))
 if not os.path.exists(path):
     os.makedirs(path)
 # 遍历问题
