@@ -53,7 +53,20 @@ else:
     locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
 
 from lib.data import Edict,edict
-
+OS=Edict(
+    ClassName=platform.uname()[0],
+    MachineName=platform.uname()[2],
+    KernelVersion=platform.uname()[3],
+    Type=platform.uname()[4],
+    Module=Edict(load=load_module,reload=reload_module,delete=delete_module)
+)
+isWindows = OS["ClassName"]=="Windows"
+isLinux   = OS["ClassName"]=="Linux"
+if isLinux:
+    os.update(dict(
+        CPUCount=int(os.popen("nproc").read()),
+        MemoryTotal=int(os.popen("free | awk 'NR==2{print $2}'").read()))
+    )
 
 @Singleton
 class system:
