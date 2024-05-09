@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import os,platform,sys,time,types,atexit,time,subprocess
-import system import *
 # 加载模块
 def load_module(package,mod=None,area=None):
     # 导入模块
@@ -70,4 +69,5 @@ if isLinux:
     )
 
 # 如果全局变量里没有System则运行
+from lib.system import system
 if "System" not in globals():System=system()

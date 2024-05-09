@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from lib import *
-import shutil
+import shutil,errno,stat
 
 path=os.path.dirname(__file__)
 SubmitObjective="github"
@@ -28,10 +28,7 @@ if SubmitObjective=="github":
 if os.path.exists(gitsource):
     shutil.copytree(gitsource,directory)
 
-if isWindows:
-    os.system("cd {path};git add *;git commit -m '{msg}';git push".format(path=directory,msg=msg))
-elif isLinux:
-    os.system("cd {path} && git add * && git commit -m '{msg}' && git push".format(path=directory,msg=msg))
+os.system("cd {path} && git add * && git commit -m '{msg}' && git push".format(path=directory,msg=msg))
 
 if isPY3:print(locale.getencoding())
 elif isPY2:print(sys.getdefaultencoding())

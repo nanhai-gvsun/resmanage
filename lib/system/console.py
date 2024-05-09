@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from ...lib import *
+from .. import *
 
 class gsConsole:
     pass
