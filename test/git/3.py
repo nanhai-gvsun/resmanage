@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import requests,json,sys,argparse,os,gitlab,types,re
+import requests,json,sys,argparse,os,gitlab,types,re,markdown
 
 # 用您的访问令牌和项目ID替换这里的值
 # TOKEN = 'TXs49vsikey2v48sjnGs'
@@ -96,4 +96,6 @@ with open(path+"/"+str(args["project_id"])+".txt","w",encoding="utf-8") as f:
     f.write(body)
 with open(path+"/"+str(args["project_id"])+".md","w",encoding="utf-8") as f:
     f.write(body)
-# print("\n".join(data))
+html_content = markdown.markdown(body)
+with open(path+"/"+str(args["project_id"])+".html","w", encoding='utf-8') as f:
+    f.write(html_content)
