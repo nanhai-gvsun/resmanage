@@ -54,6 +54,9 @@ parser.add_argument('-onefile', help='是否一个问题一个文件',action='st
 parser.add_argument('-downloadimage', help='是否下载图片',action='store_true')
 parser.add_argument('-labels', help='标签过滤',type=str,default="")
 parser.add_argument('-search', help='查询条件',type=str,default="")
+parser.add_argument('-assignee', help='查询条件',type=str,default="")
+parser.add_argument('-author', help='查询条件',type=str,default="")
+
 args = vars(parser.parse_args(sys.argv[1:]))
 headers = {'PRIVATE-TOKEN': args["token"]}
 
@@ -87,6 +90,8 @@ HEADERS = {'PRIVATE-TOKEN': args["token"]}
 params={'scope': 'all', 'per_page': 1,'page':1}
 if args["labels"]!="":params.update({'labels': args["labels"]})
 if args["search"]!="":params.update({'search':args['search']})
+if args["assignee"]!="":params.update({'assignee':args['assignee']})
+if args["author"]!="":params.update({'author':args['author']})
 response = requests.get(API_URL, headers=HEADERS, params=params)
 # 检查请求是否成功
 if response.status_code == 200:
@@ -114,8 +119,10 @@ for i in range(1,total_issues+1):
         "当前处理第{}个问题".format(str(i).rjust(7,"0"))
     ))
     data.append("## 问题编号:{}".format(issue.iid))
-    if issue.assignee:data.append("- 负责人:{}".format(issue.assignee["name"]))
-    if len(issue.assignees)!=0:data.append("- 指定人员:{}".format(issue.assignees[0]["name"]))
+    # if issue.author:data.append("- 发起人:{}".format(issue.author["name"]))
+    # if issue.assignee:data.append("- 负责人:{}".format(issue.assignee["name"]))
+    
+    # if len(issue.assignees)!=0:data.append("- 指定人员:{}".format(issue.assignees[0]["name"]))
     data.append("- 标题:{}".format(issue.attributes["title"]))
     data.append("- 描述:\n{}\n".format(issue.attributes["description"]))
     if issue.attributes["labels"]:data.append("- 标签:{}".format(issue.attributes["labels"]))
