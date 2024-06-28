@@ -3,3 +3,8 @@ test/git/data/
 test/git/config.json
 github/
 developmentmanager/
+# Python bytecode / compiled files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyc
